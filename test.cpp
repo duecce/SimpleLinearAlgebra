@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 
 class MATRIX {
@@ -76,7 +77,7 @@ class MATRIX {
         }
         MATRIX operator*(MATRIX b) {
             if (this->ncol != b.getnrow()) {
-                throw std::invalid_argument("diffent size exception");
+                throw std::invalid_argument("different size exception");
                 return *this;
             }
             MATRIX result = MATRIX(this->nrow, b.ncol);
