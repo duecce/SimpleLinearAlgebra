@@ -2,9 +2,12 @@
 
 using namespace std;
 
+class MATRIX;
+void printMatrix ( MATRIX a );
+
 class MATRIX {
     private:
-        typedef unsigned char _index;
+        typedef int _index;
         typedef double _element;
 
         unsigned int nrow, ncol;
@@ -21,10 +24,10 @@ class MATRIX {
         ~MATRIX ( ) {
             delete this->rawmatrix;
         }
-        void set (_index r, _index c, _element value) {
+        void set(_index r, _index c, _element value) {
             this->rawmatrix[r*ncol + c] = value;
         }
-        void set (_index i, _element value) {
+        void set(_index i, _element value) {
             this->rawmatrix[i] = value;
         }
         _element get(_index r, _index c) {
@@ -39,7 +42,7 @@ class MATRIX {
         _index getncol ( ) {
             return ncol;
         }
-        unsigned int getnelements ( ) {
+        _index getnelements ( ) {
             return nelements;
         }
         MATRIX operator+(MATRIX b) {
@@ -70,10 +73,9 @@ class MATRIX {
             return result;
         }
         MATRIX operator-(_element value) {
-            MATRIX result = MATRIX(this->nrow, this->ncol);
             for (_index i = 0; i < nelements; i++)
-                result.set(i, this->get(i) - value);
-            return result;
+                this->set(i, this->get(i) - value);
+            return *this;
         }
         MATRIX operator*(MATRIX b) {
             if (this->ncol != b.getnrow()) {
@@ -81,18 +83,26 @@ class MATRIX {
                 return *this;
             }
             MATRIX result = MATRIX(this->nrow, b.ncol);
-            _element sum;
-            for (int i = 0; i < b.ncol; i++) {
-                for (int j = 0; j < this->nrow; j++ ){
+            _element sum = 0;
+            for (_index i = 0; i < b.getncol(); i++) {
+                for (_index j = 0; j < this->getnrow(); j++ ) {
                     sum = 0;
-                    for (int k = 0; k < this->ncol; k++ )
+                    for (_index k = 0; k < this->getncol(); k++ ) {
                         sum += this->get(j, k) * b.get(k, i);
+                    }
                     result.set(j, i, sum);
                 }
             }
             return result;
         }
 };
+
+void printMatrix ( MATRIX a ) {
+    // print matrix
+    for (int i = 0; i < a.getnelements(); i++ ) {
+        printf ( "element %d = %f\n", i, a.get(i));
+    }
+}
 
 int main(int argc, char **argv) {
     MATRIX a = MATRIX(3, 4);
@@ -117,16 +127,13 @@ int main(int argc, char **argv) {
     b.set(5, 2);
     b.set(6, 2);
     b.set(7, 1);
-    MATRIX c = MATRIX(2, 2);
-    c.set(0, 2);
-    c.set(1, 3);
-    c.set(2, 2);
-    c.set(3, 4);
-    c = a * b * c;
-    for ( int i = 0; i < c.getnelements(); i ++ )
-        cout << "element: " << i << " = " << c.get(i) << endl;
+
+    MATRIX c = a * b;
+    printf("c = a * b\n" );
+    printMatrix(c);
+
     c = c + 10.0;
-    for ( int i = 0; i < c.getnelements(); i ++ )
-        cout << "element: " << i << " = " << c.get(i) << endl;
+    printf ( "c = c + 10.0\n" );
+    printMatrix(c);
     return 0;
 }
