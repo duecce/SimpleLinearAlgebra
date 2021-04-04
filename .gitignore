@@ -1,2 +1,6 @@
 *.exe
 *.o
+/bin/
+/obj/
+SimpleLinearAlgebra.layout
+SimpleLinearAlgebra.depend
