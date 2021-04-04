@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1617571936 source:c:\users\duecce\desktop\simplelinearalgebra\main.cpp
+	<iostream>
+	"SimpleLA.hpp"
+
+1617572347 c:\users\duecce\desktop\simplelinearalgebra\simplela.hpp
+	<iostream>
+
+1617572126 source:c:\users\duecce\desktop\simplelinearalgebra\matrix.cpp
+	"SimpleLA.hpp"
+
