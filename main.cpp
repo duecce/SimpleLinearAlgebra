@@ -43,10 +43,14 @@ int main (int argc, char **argv) {
     Matrix c = a * b;
     printf("c = a * b\n" );
     c.print();
-    printMatrix(c);
+
 
     c = c + 10.0;
     printf ( "c = c + 10.0\n" );
-    printMatrix(c);
+    c.print();
+
+    c = (a * b + 10) * 2;
+    printf ( "c = (a * b + 10) * 2;\n" );
+    c.print();
     return 0;
 }
