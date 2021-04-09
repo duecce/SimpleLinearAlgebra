@@ -17,7 +17,7 @@ Matrix::~Matrix() {
 void
 Matrix::print ( ) {
     for (int i = 0; i < this->getnelements(); i++ ) {
-        printf ( "internal element %d = %f\n", i, this->get(i));
+        printf ( "internal element %d -> (%d, %d) = %f\n", i, (i/this->ncol), (i%this->ncol), this->get(i));
     }
 }
 
@@ -53,6 +53,23 @@ Matrix::getncol ( ) {
 _index
 Matrix::getnelements ( ) {
     return nelements;
+}
+
+Matrix
+Matrix::sub(_index r, _index c) {
+    _index indexSub = 0, indexMain = 0;
+    Matrix subMatrix = Matrix(this->nrow - 1, this->ncol - 1);
+    while (indexMain < this->nelements) {
+        if (indexMain < (r*this->ncol) || indexMain >= ((r+1)*this->ncol)) {
+            if ((indexMain - c) % this->ncol != 0) {
+                subMatrix.set(indexSub, this->get(indexMain));
+                indexSub ++;
+            }
+        }
+        indexMain ++;
+    }
+    subMatrix.survive = true;
+    return subMatrix;
 }
 
 Matrix

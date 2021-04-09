@@ -35,6 +35,11 @@ int main (int argc, char **argv) {
     b.set(6, 2);
     b.set(7, 1);
 
+    Matrix d = Matrix(3, 4);
+    for ( int i = 0; i < d.getnelements(); i++) {
+        d.set(i, i);
+    }
+
     cout << "elementi di A:" << endl;
     a.print();
     cout << "elementi di B:" << endl;
@@ -52,5 +57,9 @@ int main (int argc, char **argv) {
     c = (a * b + 10) * 2;
     printf ( "c = (a * b + 10) * 2;\n" );
     c.print();
+
+    d = d.sub(1,1);
+    printf ( "rimozione riga 1 e colonna 1\n" );
+    d.print();
     return 0;
 }
